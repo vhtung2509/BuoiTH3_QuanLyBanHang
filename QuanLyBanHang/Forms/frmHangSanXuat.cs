@@ -82,32 +82,32 @@ namespace QuanLyBanHang.Forms
 
         private void btnLuu_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtTenHangSanXuat.Text))
-                MessageBox.Show("Vui lòng nhập tên hãng sản xuất?", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            else
-            {
-                if (xuLyThem)
-                {
-                    HangSanXuat lsp = new HangSanXuat();
-                    lsp.TenHangSanXuat = txtTenHangSanXuat.Text;
-                    context.HangSanXuat.Add(lsp);
-
-                    context.SaveChanges();
-                }
+                if (string.IsNullOrWhiteSpace(txtTenHangSanXuat.Text))
+                    MessageBox.Show("Vui lòng nhập tên hãng sản xuất?", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 else
                 {
-                    HangSanXuat lsp = context.HangSanXuat.Find(id);
-                    if (lsp != null)
+                    if (xuLyThem)
                     {
+                        HangSanXuat lsp = new HangSanXuat();
                         lsp.TenHangSanXuat = txtTenHangSanXuat.Text;
-                        context.HangSanXuat.Update(lsp);
+                        context.HangSanXuat.Add(lsp);
 
                         context.SaveChanges();
                     }
-                }
+                    else
+                    {
+                        HangSanXuat lsp = context.HangSanXuat.Find(id);
+                        if (lsp != null)
+                        {
+                            lsp.TenHangSanXuat = txtTenHangSanXuat.Text;
+                            context.HangSanXuat.Update(lsp);
 
-                frmHangSanXuat_Load(sender, e);
-            }
+                            context.SaveChanges();
+                        }
+                    }
+
+                    frmHangSanXuat_Load(sender, e);
+                }
         }
 
         private void btnHuyBo_Click(object sender, EventArgs e)
@@ -125,3 +125,4 @@ namespace QuanLyBanHang.Forms
         }
     }
 }
+
